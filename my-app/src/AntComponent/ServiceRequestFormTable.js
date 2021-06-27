@@ -72,10 +72,15 @@ export default function ServiceRequestFormTable(){
     // data.find(item=>console.log(item.id, record.id))
     data.find(item=>{
       if(item.id === record.id){
-        axios.delete(`http://127.0.0.1:8000/api/service/${record.id}`)
-        .then(res=>console.log("After delete = ", res))
-        toast.success(`Record ID = ${record.id} deleted successfully`)
-        window.location.reload()
+        if(item.completed !== "On going"){
+          console.log("ITEM = ", item.completed)
+          axios.delete(`http://127.0.0.1:8000/api/service/${record.id}`)
+          .then(res=>console.log("After delete = ", res))
+          toast.success(`Record ID = ${record.id} deleted successfully`)
+          window.location.reload()
+        }else{
+          toast.error("Your bike is being serviced so you cannot delete the request")
+        }
       }
     })
   }
@@ -83,6 +88,7 @@ export default function ServiceRequestFormTable(){
 
   return(
         <div style={{marginTop:'3%' ,display:'flex', flexDirection:'row', overflow:'auto',width:'100%'}}>
+           <ToastContainer/>
            <Row style={{width:'100%'}}>
              <Col style={{width:'100%'}}>
              <h1><center>{localStorage.getItem('user')}'s servicing request details</center></h1>

@@ -48,6 +48,7 @@ class ServiceRequestForm(models.Model):
     bike_company = models.CharField(max_length=50)
     bike_model = models.CharField(max_length=50)
     bike_color = models.CharField(max_length=50)
+    bike_number = models.CharField(max_length=20)
     pickup = models.CharField(max_length=50)
     delivery = models.CharField(max_length=50)
     kmcovered = models.CharField(max_length=50)

@@ -37,7 +37,7 @@ const AntDash = props =>{
             <AntNavDash/>
             <Row style={{marginTop:'3%'}}>
                 <Col style={{paddingLeft:'5%'}} span={8}>
-                    <h1 style={{marginLeft:'6%', marginBottom:'2%', marginTop:'2%'}}>Welcome to dashboard {rider}</h1>
+                    <h1 style={{marginLeft:'6%', marginBottom:'2%', marginTop:'2%', fontSize:'30px', fontWeight:'lighter'}}>Welcome to dashboard {rider}</h1>
                 </Col>
                 <Col style={{float:'right', paddingLeft:'13%', paddingTop:'2%'}} span={8} offset={8}>
                     <h2>Total registered vehicles: {x}</h2>

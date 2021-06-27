@@ -21,7 +21,7 @@ export default class AntCalender extends React.Component {
   
     render() {
       const { value, selectedValue } = this.state;
-      console.log("Calender Data = ", selectedValue.format('YYYY-MM-DD'))
+      // console.log("Calender Data = ", selectedValue.format('YYYY-MM-DD'))
       localStorage.setItem('Date', selectedValue.format('YYYY-MM-DD'))
       return (
         <>

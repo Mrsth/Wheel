@@ -2,15 +2,10 @@ from django.shortcuts import render
 from django.contrib.auth import login
 from django.http import HttpResponse
 
-# from django.core.mail import send_mail
-# from smtplib import SMTP
-# from socket import gaierror
-# from django.conf import settings
-
 import random
 from twilio.rest import Client
 
-from rest_framework import generics
+from rest_framework import generics, serializers
 from rest_framework.response import Response
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework import permissions
@@ -25,57 +20,12 @@ from knox.models import AuthToken
 from knox.views import LoginView
 from django.contrib.auth.models import User
 
-from .serializer import (UserSerializer, RegisterSerializer, FeedSerializer, ChangePasswordSerializer, BikeSerializer, ServiceRequestFormSerializer, BlogSerializer, OurServicesSerializer)
-from .models import (FeedPost, BikeModel, ServiceRequestForm, BlogModel, OurServices)
+from .serializer import (UserSerializer, RegisterSerializer, FeedSerializer, ChangePasswordSerializer, BikeSerializer, ServiceRequestFormSerializer, BlogSerializer, BikeCompanyModelSerializer,OurServicesSerializer)
+from .models import (FeedPost, BikeModel, ServiceRequestForm, BlogModel, OurServices, BikeCompanyModel)
 from rest_framework.permissions import IsAuthenticated
 
 from localStoragePy import localStoragePy
 localStorage = localStoragePy('Myapp', 'json')
-
-# Code for sending mail
-
-# port  = 587
-# smtp_server = "smtp.mailtrap.io"
-# login = '1746fe31727005'
-# password = 'bdbdf786ca0ea1'
-
-
-# sender = "from@example.com"
-# receiver = "1746fe31727005"
-
-# message = f" Welcome to wheeler's hospital {receiver} from {sender}"
-
-
-# def wheelmail():
-#     try:
-#         with smtplib.SMTP(smtp_server, port) as server:
-#             # import pdb; pdb.set_trace();
-#             server.login(login,password)
-#             server.sendmail(sender, receiver, message)
-#             print("Sent = ", message)
-#         return Response({'MSG:': message})    
-#     except (gaierror, ConnectionRefusedError):
-#         print('Failed to connect to the server. Bad connection settings?')
-#     except smtplib.SMTPServerDisconnected:
-#         print('Failed to connect to the server. Wrong user/password?')
-#     except smtplib.SMTPException as e:
-#         print('SMTP error occurred: ' + str(e))     
-     
-    
-#SMS CODE
-# otp = random.randint(1000,9999)
-# print("The OTP = ", otp)
-# account_sid = 'ACf3948ea3cb3a73ee5f9d6aa9952bbadb'
-# auth_token = 'cb1f5e9845e5325136ca1be996409e62'
-# client = Client(account_sid, auth_token)
-
-# message = client.messages.create(
-#                      body="Your OTP number is"+str{opt},
-#                      from_='+17272402246',
-#                      to='+9779843354814'
-#                  )
-
-# print(message.sid)    
 
 
 
@@ -89,7 +39,7 @@ class RegisterAPI(generics.GenericAPIView, ListModelMixin):
         return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        import pdb; pdb.set_trace();
+        # import pdb; pdb.set_trace();
         serializer = self.get_serializer(data = request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
@@ -139,7 +89,11 @@ class ChangePasswordView(generics.UpdateAPIView):
     serializer_class = ChangePasswordSerializer
 
    
-
+class BikeCompanyViewset(APIView):
+    def get(self, request, pk=None):
+        bike_company_datas = BikeCompanyModel.objects.all()
+        serializer = BikeCompanyModelSerializer(bike_company_datas, many=True)
+        return Response(serializer.data)
 
 class BikeViewset(APIView):
     def get(self, request, pk=None, format=None):

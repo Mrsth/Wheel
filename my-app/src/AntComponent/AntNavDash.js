@@ -33,9 +33,9 @@ const AntNavDash = (props) =>{
                     <Menu.Item key="5">
                         <Link to="/blog">Blogs</Link>
                     </Menu.Item>  
-                    <Menu.Item key="6">
+                    {/* <Menu.Item key="6">
                         <Link to="#">Bike Info</Link>
-                    </Menu.Item>  
+                    </Menu.Item>   */}
                     <Menu.Item key="7" style={{float:'right'}} >
                         <Link to="#">{localStorage.getItem('user')}'s account</Link>
                     </Menu.Item>  

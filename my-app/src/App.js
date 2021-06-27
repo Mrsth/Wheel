@@ -17,6 +17,7 @@ import AntBlog from './AntComponent/AntBlog';
 import AntBikeUpdate from './AntComponent/AntBikeUpdate';
 import AntResetPassword from './AntComponent/AntResetPassword';
 import AntOurServices from './AntComponent/AntOurService';
+import AntUser from './AntComponent/AntUser';
 
 
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
@@ -41,6 +42,7 @@ function App() {
           <ProtectedRoute exact path="/blog" component={AntBlog}/>
           <ProtectedRoute exact path="/update" component={AntBikeUpdate}/>
           <ProtectedRoute exact path="/reset" component={AntResetPassword}/>
+          <ProtectedRoute exact path="/profile" component={AntUser}/>
           <Route exact path="/ourservices" component={AntOurServices}/>
         </Switch>
       </BrowserRouter>

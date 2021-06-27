@@ -182,14 +182,14 @@
 // ----------------------------------------------- OK ----------------------------------------------------------
 
 import AntNavDash from './AntNavDash'
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {Row, Col, Form, Input} from 'antd';
 import image1 from '../Images/w1.jpg';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AntFooter from './AntFooter';
-
+import Dropdown from 'react-dropdown';
 
 function AntBikeReg(props){
 
@@ -200,9 +200,16 @@ function AntBikeReg(props){
     const[Reg_Bike_number, setReg_Bike_number] = useState("")
     const[Reg_Bike_color, setReg_Bike_color] = useState("")
     const[Reg_Picture, setReg_Picture] = useState("")
+    
 
     const [form] = Form.useForm();
 
+    const[companyDatas, setCompanyDatas] = useState([])
+    const[bikeNumbers, setBikeNumbers] = useState([])
+
+    // for(var j=0; j<bikeNumbers.length; i++){
+    //     console.log("OKLOL = ", bikeNumbers[i])
+    // }
 
     let formData = new FormData();
     formData.append("rider",Reg_Rider);
@@ -244,6 +251,46 @@ function AntBikeReg(props){
         },
     };
 
+    useEffect(()=>{
+        axios.get('http://127.0.0.1:8000/api/bike')
+        .then(res=>{
+            setBikeNumbers(res.data)
+        })
+        axios.get('http://127.0.0.1:8000/api/company')
+        .then(res=>{
+            setCompanyDatas(res.data)
+        })
+    },[])
+
+//----------------------------------------------------------------------
+var list_bikeCompany = []
+for(var i=0; i<companyDatas.length; i++){
+    list_bikeCompany.push(companyDatas[i]["companyName"] )
+    // console.log("LOL = ", companyDatas[i]["companyName"])
+}
+// var list_bikeModel = []
+// for(var i=0; i<companyDatas.length; i++){
+//    list_bikeModel.push(companyDatas[i]["model"])
+// }
+//----------------------------------------------------------------------
+
+const defaultOption = "Select your bike company"
+function handleSelect(option){
+    const selectedCity = option.value
+    setReg_Company(selectedCity)
+}
+const defaultOption1 = "Bike user"
+function handleUserSelect(option){
+    const selectedUser = option.value
+    setReg_Rider(selectedUser)
+}
+// const defaultOption2 = "Select your bike model"
+// function handleModelSelect(option){
+//     const selectedModel = option.value
+//     setReg_Model(selectedModel)
+// }
+
+
     return(
         <div className="App">
             <AntNavDash/>
@@ -267,7 +314,8 @@ function AntBikeReg(props){
                             },
                             ]}
                         >
-                             <Input  id = "demo1" name="username" value={Reg_Rider} type="text" onChange={(evt) => setReg_Rider(evt.target.value)} placeholder="Enter your name"/>
+                            <Dropdown onChange={handleUserSelect} options={[localStorage.getItem('user')]} value={defaultOption1} placeholder="Select rider name" />    
+                            {/* <Input  id = "demo1" name="username" value={Reg_Rider} type="text" onChange={(evt) => setReg_Rider(evt.target.value)} placeholder="Enter your name"/> */}
                         </Form.Item>
 
                         <Form.Item
@@ -280,11 +328,12 @@ function AntBikeReg(props){
                             },
                             ]}
                         >
-                             <Input  id = "demo1" name="company" value={Reg_Company} type="text"  onChange={(evt) => setReg_Company(evt.target.value)} placeholder="Enter bike company"/>
+                            <Dropdown onChange={handleSelect} options={list_bikeCompany} value={defaultOption} placeholder="Select bike company" />    
+                            {/* <Input  id = "demo1" name="company" value={Reg_Company} type="text"  onChange={(evt) => setReg_Company(evt.target.value)} placeholder="Enter bike company"/> */}
                         </Form.Item>
 
                         <Form.Item
-                            name="model"
+                            // name="model"
                             label="Model"
                             rules={[
                             {

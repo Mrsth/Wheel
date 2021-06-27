@@ -37,18 +37,12 @@ const AntRegister = props =>{
                   'password': password
               }).then(res=>{
                   console.log(res.data.token)
-                  //localStorage.setItem('token', res.data.token)
-                //   setSuccessAlert(true)
-                //   setTimeout(()=>{
-                //     setSuccessAlert(false)
-                // },5000)
                     toast.success("User Created successfully")
                     form.resetFields();
                 }
                 ).catch(()=>{
                     setError(true)
                     toast.error("Registrations Failed")
-                    // setTimeout(()=>{setError(false)}, 5000)
                     form.resetFields();
                 })
                
@@ -65,25 +59,6 @@ const AntRegister = props =>{
             <AntNav/>
             <ToastContainer/>
             <div style={{width:'30%', marginTop:'10%', marginLeft:'41%'}}>
-            {/* {
-                showSuccessAlert && 
-                
-                <Alert message="Signup Completed" type="success" 
-                description="User account has been created" 
-                showIcon 
-                style={{maxWidth:"30em", fontWeight:"bold"}}/>
-                
-            }
-
-            {
-                    error && 
-                    <center>
-                    <Alert message="Signup Failed" type="error" 
-                    description = "Please input valid inputs"
-                    showIcon 
-                    style={{maxWidth:"30em", fontWeight:"bold"}}/>
-                    </center>
-            } */}
             <h1>Sign Up</h1>
             <Form
                 form={form}
@@ -119,17 +94,6 @@ const AntRegister = props =>{
                     <Input  placeholder="Email" prefix={<MailFilled className="site-form-item-icon"/>} onChange={e=>setEmail(e.target.value)} id="demo2"/>
                 </Form.Item>
 
-                {/* <Form.Item
-                    name="phone"
-                    rules={[
-                    {
-                        required: false,
-                        message: 'Please input your phone number!',
-                    },
-                    ]}
-                >
-                    <Input  placeholder="Phone number" prefix={<MailFilled className="site-form-item-icon"/>} onChange={e=>setEmail(e.target.value)} id="demo2"/>
-                </Form.Item> */}
 
                 <Form.Item
                     name="password"

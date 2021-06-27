@@ -1,5 +1,5 @@
 from .views import (RegisterAPI, LoginAPI, FeedsAPI, ChangePasswordView, 
-                    BikeViewset, ServiceRequestFormViewset, BlogViewSet, OurServicesViewset)
+                    BikeViewset, ServiceRequestFormViewset, BlogViewSet, OurServicesViewset, BikeCompanyViewset)
 from django.urls import path, include
 
 
@@ -15,5 +15,6 @@ urlpatterns = [
     path('blog', BlogViewSet.as_view(), name='blog'),
     path('blog/<int:pk>', BikeViewset.as_view()),
     path('ourservices', OurServicesViewset.as_view()),
+    path('company', BikeCompanyViewset.as_view())
     # path('mail', wheelmail),
     ]

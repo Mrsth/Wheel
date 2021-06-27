@@ -1,6 +1,7 @@
+from django.db.models import fields
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import FeedPost, BikeModel, ServiceRequestForm, BlogModel, OurServices
+from .models import FeedPost, BikeModel, ServiceRequestForm, BlogModel, OurServices, BikeCompanyModel
 
 #User Serializer
 class UserSerializer(serializers.ModelSerializer):
@@ -56,7 +57,11 @@ class BikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = BikeModel
         fields = "__all__" 
-          
+
+class BikeCompanyModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BikeCompanyModel
+        fields = "__all__"         
 
 class ServiceRequestFormSerializer(serializers.ModelSerializer):
     class Meta:
